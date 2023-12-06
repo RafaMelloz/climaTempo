@@ -1,35 +1,38 @@
 import React, { useContext } from "react";
+import "./erro.css"
 import { ApiContext } from "../../context"; // Substitua pelo caminho correto
 
 export class ErrorBoundary extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { hasError: false };
+        this.state = { hasError: false, resetClicked: false };
     }
 
     static getDerivedStateFromError(error) {
-        // Atualiza o state para que a próxima renderização mostre a UI alternativa.
         return { hasError: true };
     }
 
     handleReset = () => {
-        const { setFetchState } = this.context; // Obtendo a função setFetchState do contexto
-        // Adicione a lógica aqui para resetar o estado para o valor inicial (por exemplo, cidade: "Itapevi")
-        setFetchState((prev) => ({ ...prev, cidade: "Itapevi" })); // Atualiza apenas a cidade
-        this.setState({ hasError: false }); // Resetando o estado de hasError
+        const { setFetchState, setDadosState } = this.context;
+        setFetchState({ apiKey: "ea29630a0fa8096384c9b535470337bf", cidade: "brasil" }); 
+        setDadosState([]); 
+        this.setState({ hasError: false, resetClicked: true });
     };
 
-    componentDidCatch(error, errorInfo) {
-        console.error("Erro capturado:", error, errorInfo);
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.resetClicked && !this.state.resetClicked) {
+            this.setState({ hasError: false });
+        }
     }
 
     render() {
         if (this.state.hasError) {
-            // Você pode renderizar qualquer UI alternativa
             return (
-                <div>
-                    <h1>Algo deu errado.</h1>
-                    <button onClick={this.handleReset}>Voltar para Itapevi</button>
+                <div className="erro">
+                    <h1>Insira um Pais/Cidade valido.</h1>
+                    {!this.state.resetClicked && (
+                        <button onClick={this.handleReset}>Tentar novamente</button>
+                    )}
                 </div>
             );
         }
@@ -38,5 +41,6 @@ export class ErrorBoundary extends React.Component {
     }
 }
 
-// Adicionando o contexto ao componente de classe
+
+
 ErrorBoundary.contextType = ApiContext;

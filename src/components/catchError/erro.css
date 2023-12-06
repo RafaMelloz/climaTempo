@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed:wght@400;600&display=swap');
+
+
+.erro{
+    background: linear-gradient(180deg, rgb(20 20 30) 0%, rgba(225, 27, 1, 0.57) 52%, rgba(255, 81, 0, 0.534) 100%);
+    padding: 3rem;
+    border-radius: 2rem;
+}
+.erro h1{
+    color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 3rem;
+}
+
+.erro h1{
+    color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 3rem;
+}
+
+.erro button{
+    display: block;
+    margin: 1rem auto;
+    padding: 1rem;
+    border: none;
+    background-color: white;
+    border-radius: 2rem;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 1.6rem;
+}
